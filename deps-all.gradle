@@ -56,6 +56,7 @@ ext.deps = [
                 'java'   : "io.reactivex.rxjava2:rxjava:$versions.rx.java",
                 'android': "io.reactivex.rxjava2:rxandroid:$versions.rx.android",
         ],
+        'picasso'       : "com.squareup.picasso:picasso:$versions.picasso",
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         // TESTING                                                                                //

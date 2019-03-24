@@ -37,6 +37,7 @@ ext {
         implementation deps.google.support.recyclerView
         implementation deps.google.support.fragment
         implementation deps.google.support.constraint
+        implementation deps.picasso
     }
 
     baseTesting = Group {
