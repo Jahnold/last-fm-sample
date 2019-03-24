@@ -1,0 +1,75 @@
+def Group(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+ext {
+
+    core = Group {
+        implementation deps.libs
+    }
+
+    kotlin = Group {
+        implementation deps.kotlin.core
+        implementation deps.kotlin.reflect
+        implementation deps.kotlin.ktx
+    }
+
+    dagger = Group {
+        implementation deps.dagger.inject
+        implementation deps.dagger.dagger
+        kapt deps.dagger.compiler
+        implementation deps.dagger.android
+        implementation deps.dagger.support
+        kapt deps.dagger.processor
+    }
+
+    archComponents = Group {
+        implementation deps.archComponents.viewModel
+        implementation deps.archComponents.extensions
+        kapt deps.archComponents.compiler
+    }
+
+    view = Group {
+        implementation deps.google.support.design
+        implementation deps.google.support.compat
+        implementation deps.google.support.app
+        implementation deps.google.support.recyclerView
+        implementation deps.google.support.fragment
+        implementation deps.google.support.constraint
+    }
+
+    baseTesting = Group {
+
+        implementation deps.mockito.core
+        implementation deps.mockito.inline
+        implementation deps.mockito.kotlin
+
+        implementation deps.truth
+    }
+
+    network = Group {
+
+        implementation deps.retrofit.retrofit
+        implementation deps.retrofit.gson
+        implementation deps.retrofit.rx2
+        implementation deps.okHttp.okHttp
+    }
+
+    testing = Group {
+        testImplementation(deps.jUnit) { exclude group: 'org.hamcrest' }
+        testImplementation deps.truth
+
+        testImplementation deps.mockito.core
+        testImplementation deps.mockito.inline
+        testImplementation deps.mockito.kotlin
+
+        kaptTest deps.dagger.compiler
+    }
+
+    rx = Group {
+        implementation deps.rx.java
+        implementation deps.rx.android
+    }
+
+}
