@@ -2,6 +2,7 @@ package com.jahnold.lastfmsample.base.network
 
 import com.jahnold.lastfmsample.base.data.api.ApiAlbumDetails
 import com.jahnold.lastfmsample.base.data.api.ApiSearchAlbum
+import com.jahnold.lastfmsample.base.data.api.ApiSearchResults
 import com.jahnold.lastfmsample.base.data.domain.AlbumDetails
 import com.jahnold.lastfmsample.base.data.domain.AlbumSearch
 import com.jahnold.lastfmsample.base.transformers.Transformer
@@ -16,44 +17,45 @@ class NetworkRepository @Inject constructor(
 
     fun searchAlbums(search: String): Observable<ResultAlbumSearch> {
 
-        val result = restApi
+        return restApi
             .searchAlbums(search)
+            .map { result ->
+                return@map when (result.isSuccessful) {
+                    true -> mapToSearchSuccess(result.body())
+                    else -> ResultAlbumSearch.Error
+                }
+            }
             .toObservable()
-            .publish()
-            .autoConnect()
+    }
 
-        val happy = result
-            .filter { it.isSuccessful }
-            .map { it.body()?.results?.albumMatches?.album }
-            .map { apiAlbums -> apiAlbums.map { albumSearchTransformer.transform(it) } }
-            .map { albums -> ResultAlbumSearch.Success(albums) }
+    private fun mapToSearchSuccess(result: ApiSearchResults?): ResultAlbumSearch {
 
-        val sad = result
-            .filter { !it.isSuccessful }
-            .map { ResultAlbumSearch.Error }
+        val albums = result
+            ?.results
+            ?.albumMatches
+            ?.album
+            ?.map { apiAlbum -> apiAlbum.let { albumSearchTransformer.transform(it) } }
 
-        return Observable.merge(happy, sad).take(1)
+        return albums?.let { ResultAlbumSearch.Success(it) } ?: ResultAlbumSearch.Error
     }
 
     fun getAlbumDetails(uuid: String): Observable<ResultAlbumDetails> {
 
-        val result = restApi
+        return restApi
             .getAlbumDetails(uuid)
+            .map { result ->
+                return@map when (result.isSuccessful) {
+                    true -> mapToDetailsSuccess(result.body())
+                    else -> ResultAlbumDetails.Error
+                }
+            }
             .toObservable()
-            .publish()
-            .autoConnect()
+    }
 
-        val happy = result
-            .filter { it.isSuccessful }
-            .map { it.body() }
-            .map { apiAlbum -> albumDetailsTransformer.transform(apiAlbum) }
-            .map { album -> ResultAlbumDetails.Success(album) }
+    private fun mapToDetailsSuccess(result: ApiAlbumDetails?): ResultAlbumDetails {
 
-        val sad = result
-            .filter { !it.isSuccessful }
-            .map { ResultAlbumDetails.Error }
-
-        return Observable.merge(happy, sad).take(1)
+        val details = result?.let { albumDetailsTransformer.transform(it) }
+        return details?.let { ResultAlbumDetails.Success(it) } ?: ResultAlbumDetails.Error
     }
 
     sealed class ResultAlbumSearch {
