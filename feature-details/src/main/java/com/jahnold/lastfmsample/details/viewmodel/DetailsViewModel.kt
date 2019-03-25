@@ -14,10 +14,11 @@ class DetailsViewModel @Inject constructor(
 
     fun getDetailsData(): Observable<DetailsState> {
 
-        val uuid = persistenceHelper.getAlbumUuid() ?: return Observable.just(DetailsState.Error)
+        val uuid = persistenceHelper.getAlbumUuid()
 
-        return itemUseCase
-            .getAction(uuid)
-            .onErrorReturn { DetailsState.Error }
+        return when (uuid != null) {
+            true -> itemUseCase.getAction(uuid)
+            else -> Observable.just(DetailsState.Error)
+        }
     }
 }
