@@ -4,6 +4,7 @@ import com.jahnold.lastfmsample.base.navigation.Navigator
 import com.jahnold.lastfmsample.base.view.BaseFragment
 import com.jahnold.lastfmsample.details.view.DetailsFragment
 import com.jahnold.lastfmsample.list.view.ListFragment
+import com.jahnold.lastfmsample.search.view.SearchFragment
 import javax.inject.Inject
 
 class NavigatorImpl @Inject constructor(): Navigator {
@@ -13,7 +14,7 @@ class NavigatorImpl @Inject constructor(): Navigator {
 
             Navigator.Fragments.List -> ListFragment()
             Navigator.Fragments.Details -> DetailsFragment()
-            Navigator.Fragments.Search -> TODO()
+            Navigator.Fragments.Search -> SearchFragment()
         }
     }
 }

@@ -25,7 +25,7 @@ class MainActivity: BaseActivity() {
         supportFragmentManager
             .beginTransaction()
             .apply {
-                add(R.id.layout_container, SearchFragment())
+                replace(R.id.layout_container, SearchFragment())
                 commit()
             }
 
