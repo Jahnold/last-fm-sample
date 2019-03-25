@@ -55,6 +55,7 @@ ext {
         implementation deps.retrofit.gson
         implementation deps.retrofit.rx2
         implementation deps.okHttp.okHttp
+        implementation deps.okHttp.logging
     }
 
     testing = Group {

@@ -13,6 +13,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -55,15 +56,33 @@ object NetworkModule {
         }
 
     @Provides
+    @JvmStatic
+    internal fun providesLoggingInterceptor(): HttpLoggingInterceptor? =
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+        } else null
+
+    @Provides
     @Singleton
     @JvmStatic
     fun provideOkHttp(
         @Named("API_KEY") apiKeyInterceptor: Interceptor,
-        @Named("JSON") jsonInterceptor: Interceptor
-    ): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(apiKeyInterceptor)
-        .addInterceptor(jsonInterceptor)
-        .build()
+        @Named("JSON") jsonInterceptor: Interceptor,
+        loggingInterceptor: HttpLoggingInterceptor?
+    ): OkHttpClient {
+
+        val builder =  OkHttpClient.Builder()
+            .addInterceptor(apiKeyInterceptor)
+            .addInterceptor(jsonInterceptor)
+
+        if (loggingInterceptor != null) {
+            builder.addInterceptor(loggingInterceptor)
+        }
+
+        return builder.build()
+    }
 
     @Provides
     @Singleton
