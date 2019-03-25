@@ -12,15 +12,17 @@ class AlbumDetailsTransformer: Transformer<ApiAlbumDetails, AlbumDetails> {
 
     override fun transform(input: ApiAlbumDetails): AlbumDetails {
 
+        val album = input.album
+
         return AlbumDetails(
-            uuid = input.uuid.orEmpty(),
-            name = input.name.orEmpty(),
-            artist = input.artist.orEmpty(),
-            images = getImages(input.images),
-            tracks = getTracks(input.tracks),
-            tags = getTags(input.tags),
-            published = input.wiki?.published.orEmpty(),
-            summary = input.wiki?.summary.orEmpty()
+            uuid = album?.uuid.orEmpty(),
+            name = album?.name.orEmpty(),
+            artist = album?.artist.orEmpty(),
+            images = getImages(album?.image),
+            tracks = getTracks(album?.tracks),
+            tags = getTags(album?.tags),
+            published = album?.wiki?.published.orEmpty(),
+            summary = album?.wiki?.summary.orEmpty()
         )
     }
 

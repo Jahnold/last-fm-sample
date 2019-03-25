@@ -77,26 +77,28 @@ class AlbumDetailsTransformerTest {
         const val SUMMARY = "summary"
 
         val ALBUM_DETAILS = ApiAlbumDetails(
-            uuid = UUID,
-            name = NAME,
-            artist = ARTIST,
-            images = listOf(
-                ApiImage(url = IMAGE_URL1, size = "small"),
-                ApiImage(url = IMAGE_URL2, size = "medium")
-            ),
-            tracks = ApiTracks(
-                track = listOf(
-                    ApiTrack(name = TRACK_NAME, duration = TRACK_DURATION)
+            album = ApiAlbumDetailsAlbum(
+                uuid = UUID,
+                name = NAME,
+                artist = ARTIST,
+                image = listOf(
+                    ApiImage(url = IMAGE_URL1, size = "small"),
+                    ApiImage(url = IMAGE_URL2, size = "medium")
+                ),
+                tracks = ApiTracks(
+                    track = listOf(
+                        ApiTrack(name = TRACK_NAME, duration = TRACK_DURATION)
+                    )
+                ),
+                tags = ApiTags(
+                    tag = listOf(
+                        ApiTag(TAG_NAME)
+                    )
+                ),
+                wiki = ApiWiki(
+                    published = PUBLISHED,
+                    summary = SUMMARY
                 )
-            ),
-            tags = ApiTags(
-                tag = listOf(
-                    ApiTag(TAG_NAME)
-                )
-            ),
-            wiki = ApiWiki(
-                published = PUBLISHED,
-                summary = SUMMARY
             )
         )
     }

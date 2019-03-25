@@ -126,19 +126,21 @@ class NetworkRepositoryTest {
         )
 
         val API_ALBUM_DETAILS = ApiAlbumDetails(
-            uuid = "uuid",
-            name = "name",
-            artist = "artist",
-            images = emptyList(),
-            tracks = ApiTracks(
-                track = emptyList()
-            ),
-            tags = ApiTags(
-                tag = emptyList()
-            ),
-            wiki = ApiWiki(
-                published = "published",
-                summary = "summary"
+            album = ApiAlbumDetailsAlbum(
+                uuid = "uuid",
+                name = "name",
+                artist = "artist",
+                image = emptyList(),
+                tracks = ApiTracks(
+                    track = emptyList()
+                ),
+                tags = ApiTags(
+                    tag = emptyList()
+                ),
+                wiki = ApiWiki(
+                    published = "published",
+                    summary = "summary"
+                )
             )
         )
     }
