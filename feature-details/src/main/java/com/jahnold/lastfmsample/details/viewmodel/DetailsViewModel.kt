@@ -16,7 +16,7 @@ class DetailsViewModel @Inject constructor(
 
         val uuid = persistenceHelper.getAlbumUuid()
 
-        return when (uuid != null) {
+        return when (!uuid.isNullOrEmpty()) {
             true -> itemUseCase.getAction(uuid)
             else -> Observable.just(DetailsState.Error)
         }
