@@ -72,7 +72,7 @@ class NetworkRepositoryTest {
     fun `getAlbumDetails - should return error when the network request is not successful`() {
 
         val errorResponse: Response<ApiAlbumDetails> = Response.error(500, ResponseBody.create(MediaType.parse("json"), "{}"))
-        whenever(restApi.getAlbumDetails(any())).thenReturn(Single.just(errorResponse))
+        whenever(restApi.albumDetails(any())).thenReturn(Single.just(errorResponse))
 
         repo.getAlbumDetails("").subscribe(detailsSubscriber)
 
@@ -85,7 +85,7 @@ class NetworkRepositoryTest {
     fun `getAlbumDetails - should return success when the network request works`() {
 
         val response: Response<ApiAlbumDetails> = Response.success(API_ALBUM_DETAILS)
-        whenever(restApi.getAlbumDetails(any())).thenReturn(Single.just(response))
+        whenever(restApi.albumDetails(any())).thenReturn(Single.just(response))
 
         repo.getAlbumDetails("").subscribe(detailsSubscriber)
 
@@ -98,7 +98,7 @@ class NetworkRepositoryTest {
     fun `getAlbumDetails - should return error if the result is invalid`() {
 
         val response: Response<ApiAlbumDetails> = Response.success(null)
-        whenever(restApi.getAlbumDetails(any())).thenReturn(Single.just(response))
+        whenever(restApi.albumDetails(any())).thenReturn(Single.just(response))
 
         repo.getAlbumDetails("").subscribe(detailsSubscriber)
 

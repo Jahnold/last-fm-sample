@@ -25,7 +25,6 @@ class NetworkRepository @Inject constructor(
                     else -> ResultAlbumSearch.Error
                 }
             }
-            .toObservable()
     }
 
     private fun mapToSearchSuccess(result: ApiSearchResults?): ResultAlbumSearch {
@@ -42,14 +41,13 @@ class NetworkRepository @Inject constructor(
     fun getAlbumDetails(uuid: String): Observable<ResultAlbumDetails> {
 
         return restApi
-            .getAlbumDetails(uuid)
+            .albumDetails(uuid)
             .map { result ->
                 return@map when (result.isSuccessful) {
                     true -> mapToDetailsSuccess(result.body())
                     else -> ResultAlbumDetails.Error
                 }
             }
-            .toObservable()
     }
 
     private fun mapToDetailsSuccess(result: ApiAlbumDetails?): ResultAlbumDetails {

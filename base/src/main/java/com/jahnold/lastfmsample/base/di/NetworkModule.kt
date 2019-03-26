@@ -1,10 +1,13 @@
 package com.jahnold.lastfmsample.base.di
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.jahnold.lastfmsample.base.BuildConfig
 import com.jahnold.lastfmsample.base.data.api.ApiAlbumDetails
 import com.jahnold.lastfmsample.base.data.api.ApiSearchAlbum
 import com.jahnold.lastfmsample.base.data.domain.AlbumDetails
 import com.jahnold.lastfmsample.base.data.domain.AlbumSearch
+import com.jahnold.lastfmsample.base.network.QueryParamsInterceptor
 import com.jahnold.lastfmsample.base.network.RestApi
 import com.jahnold.lastfmsample.base.transformers.AlbumDetailsTransformer
 import com.jahnold.lastfmsample.base.transformers.AlbumSearchTransformer
@@ -68,14 +71,12 @@ object NetworkModule {
     @Singleton
     @JvmStatic
     fun provideOkHttp(
-        @Named("API_KEY") apiKeyInterceptor: Interceptor,
-        @Named("JSON") jsonInterceptor: Interceptor,
+        queryParamsInterceptor: QueryParamsInterceptor,
         loggingInterceptor: HttpLoggingInterceptor?
     ): OkHttpClient {
 
         val builder =  OkHttpClient.Builder()
-            .addInterceptor(apiKeyInterceptor)
-            .addInterceptor(jsonInterceptor)
+            .addInterceptor(queryParamsInterceptor)
 
         if (loggingInterceptor != null) {
             builder.addInterceptor(loggingInterceptor)
@@ -87,16 +88,25 @@ object NetworkModule {
     @Provides
     @Singleton
     @JvmStatic
-    fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit =
+    fun providesGson(): Gson = GsonBuilder()
+        .setLenient()
+        .create()
+
+    @Provides
+    @Singleton
+    @JvmStatic
+    fun providesRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit =
         Retrofit.Builder()
             .baseUrl("https://ws.audioscrobbler.com/2.0/")
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .validateEagerly(true)
             .build()
 
     @Provides
     @JvmStatic
+    @Singleton
     fun providesRestApi(retrofit: Retrofit): RestApi =
             retrofit.create(RestApi::class.java)
 

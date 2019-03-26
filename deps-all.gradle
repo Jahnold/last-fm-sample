@@ -46,7 +46,6 @@ ext.deps = [
         'retrofit'              : [
                 'retrofit': "com.squareup.retrofit2:retrofit:$versions.retrofit",
                 'gson'    : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
-                'rx'      : "com.squareup.retrofit2:adapter-rxjava:$versions.retrofit",
                 'rx2'     : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
         ],
         'okHttp'                : [

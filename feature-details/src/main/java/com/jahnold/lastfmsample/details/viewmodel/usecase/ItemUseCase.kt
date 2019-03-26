@@ -22,12 +22,18 @@ class ItemUseCase @Inject constructor(
             .getAlbumDetails(input)
             .map { result ->
                 return@map when (result) {
-                    is NetworkRepository.ResultAlbumDetails.Success -> DetailsState.Success(transformer.transform(result.result))
+                    is NetworkRepository.ResultAlbumDetails.Success -> mapToContent(result)
                     NetworkRepository.ResultAlbumDetails.Error -> DetailsState.Error
                 }
             }
-            .startWith{ DetailsState.Loading }
+            .startWith { DetailsState.Loading }
             .subscribeOn(schedulerHelper.io())
             .observeOn(schedulerHelper.mainThread())
+    }
+
+    private fun mapToContent(result: NetworkRepository.ResultAlbumDetails.Success): DetailsState {
+
+        val album = transformer.transform(result.result)
+        return DetailsState.Success(album)
     }
 }
