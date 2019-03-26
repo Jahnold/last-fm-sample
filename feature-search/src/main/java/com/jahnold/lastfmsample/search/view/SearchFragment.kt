@@ -38,6 +38,9 @@ class SearchFragment: BaseFragment() {
 
     private fun initSearchClickListener() {
 
-        searchButton.setOnClickListener { viewModel.search(searchBox.text.toString()) }
+        searchButton.setOnClickListener {
+            viewModel.search(searchBox.text.toString())
+            hideKeyboard(searchBox)
+        }
     }
 }
