@@ -4,18 +4,20 @@ enum class ImageSize {
     SMALL,
     MEDIUM,
     LARGE,
-    EXTRA_LARGE;
+    EXTRA_LARGE,
+    MEGA;
 
     companion object {
 
-        fun fromString(input: String): ImageSize {
+        fun fromString(input: String?): ImageSize?{
 
             return when(input) {
                 "small" -> SMALL
                 "medium" -> MEDIUM
                 "large" -> LARGE
                 "extralarge" -> EXTRA_LARGE
-                else -> throw IllegalArgumentException("Unknown image size $input")
+                "mega" -> MEGA
+                else -> null
             }
         }
     }

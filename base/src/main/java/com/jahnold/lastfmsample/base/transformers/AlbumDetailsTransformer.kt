@@ -30,7 +30,7 @@ class AlbumDetailsTransformer: Transformer<ApiAlbumDetails, AlbumDetails> {
 
         return apiImages
             ?.mapNotNull { apiImage ->
-                val size =  apiImage.size?.let { ImageSize.fromString(it) }
+                val size = ImageSize.fromString(apiImage.size)
                 val url = apiImage.url
 
                 return@mapNotNull when (size != null && url != null) {
