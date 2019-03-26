@@ -1,7 +1,5 @@
 package com.jahnold.lastfmsample.base.di
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.jahnold.lastfmsample.base.BuildConfig
 import com.jahnold.lastfmsample.base.data.api.ApiAlbumDetails
 import com.jahnold.lastfmsample.base.data.api.ApiSearchAlbum
@@ -45,22 +43,14 @@ object NetworkModule {
         .addInterceptor(loggingInterceptor)
         .build()
 
-
     @Provides
     @Singleton
     @JvmStatic
-    fun providesGson(): Gson = GsonBuilder()
-        .setLenient()
-        .create()
-
-    @Provides
-    @Singleton
-    @JvmStatic
-    fun providesRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit =
+    fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl("https://ws.audioscrobbler.com/2.0/")
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .validateEagerly(true)
             .build()
