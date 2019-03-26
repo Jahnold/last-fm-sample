@@ -6,6 +6,6 @@ sealed class DetailsState(
     val isErrorVisible: Boolean
 ) {
     object Loading: DetailsState(true, false, false)
-    data class Success(val data: DetailsUiModel): DetailsState(false, true, false)
+    data class Content(val data: DetailsUiModel): DetailsState(false, true, false)
     object Error: DetailsState(false, false, true)
 }

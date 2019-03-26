@@ -55,7 +55,7 @@ class DetailsFragment: BaseFragment() {
             .subscribe(
                 { result ->
                     setVisibilities(result)
-                    if (result is DetailsState.Success) {
+                    if (result is DetailsState.Content) {
                         setViewFromData(result.data)
                     }
                 },

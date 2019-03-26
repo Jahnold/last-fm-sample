@@ -26,7 +26,7 @@ class ItemUseCase @Inject constructor(
                     NetworkRepository.ResultAlbumDetails.Error -> DetailsState.Error
                 }
             }
-            .startWith { DetailsState.Loading }
+            .startWith(DetailsState.Loading)
             .subscribeOn(schedulerHelper.io())
             .observeOn(schedulerHelper.mainThread())
     }
@@ -34,6 +34,6 @@ class ItemUseCase @Inject constructor(
     private fun mapToContent(result: NetworkRepository.ResultAlbumDetails.Success): DetailsState {
 
         val album = transformer.transform(result.result)
-        return DetailsState.Success(album)
+        return DetailsState.Content(album)
     }
 }
