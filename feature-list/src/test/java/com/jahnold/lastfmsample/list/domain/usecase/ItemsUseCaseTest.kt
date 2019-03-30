@@ -3,13 +3,11 @@
 package com.jahnold.lastfmsample.list.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
-import com.jahnold.lastfmsample.list.domain.data.AlbumSearch
 import com.jahnold.lastfmsample.base.data.ImageSize
-import com.jahnold.lastfmsample.base.network.NetworkRepository
-import com.jahnold.lastfmsample.base.network.NetworkRepository.ResultAlbumSearch.Error
-import com.jahnold.lastfmsample.base.network.NetworkRepository.ResultAlbumSearch.Success
 import com.jahnold.lastfmsample.base.search.SearchService
 import com.jahnold.lastfmsample.base.util.SchedulerHelper
+import com.jahnold.lastfmsample.list.domain.data.AlbumSearch
+import com.jahnold.lastfmsample.list.network.ListRepository
 import com.jahnold.lastfmsample.list.view.data.ListState
 import com.jahnold.lastfmsample.list.view.data.ListUiModelTransformer
 import com.nhaarman.mockito_kotlin.any
@@ -26,7 +24,7 @@ import org.mockito.Mockito.spy
 class ItemsUseCaseTest {
 
     val searchService = mock(SearchService::class.java)
-    val networkRepository = mock(NetworkRepository::class.java)
+    val networkRepository = mock(ListRepository::class.java)
     val transformer = spy(ListUiModelTransformer::class.java)
     val schedulerHelper = mock(SchedulerHelper::class.java)
 
@@ -34,7 +32,7 @@ class ItemsUseCaseTest {
 
     val subscriber = TestObserver.create<ListState>()
     val searchBroadcast = PublishSubject.create<String>()
-    val resultBroadcast = PublishSubject.create<NetworkRepository.ResultAlbumSearch>()
+    val resultBroadcast = PublishSubject.create<ListRepository.ResultAlbumSearch>()
 
     @Before
     fun setUp() {
@@ -70,7 +68,7 @@ class ItemsUseCaseTest {
 
         useCase.getAction().subscribe(subscriber)
         searchBroadcast.onNext("")
-        resultBroadcast.onNext(Error)
+        resultBroadcast.onNext(ListRepository.ResultAlbumSearch.Error)
 
         val result = subscriber.values()
 
@@ -84,7 +82,7 @@ class ItemsUseCaseTest {
 
         useCase.getAction().subscribe(subscriber)
         searchBroadcast.onNext("")
-        resultBroadcast.onNext(Success(listOf(ALBUM)))
+        resultBroadcast.onNext(ListRepository.ResultAlbumSearch.Success(listOf(ALBUM)))
 
         verify(transformer).transform(ALBUM)
     }
@@ -94,7 +92,7 @@ class ItemsUseCaseTest {
 
         useCase.getAction().subscribe(subscriber)
         searchBroadcast.onNext("")
-        resultBroadcast.onNext(Success(listOf(ALBUM)))
+        resultBroadcast.onNext(ListRepository.ResultAlbumSearch.Success(listOf(ALBUM)))
 
         val result = subscriber.values()
 

@@ -1,11 +1,10 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.jahnold.lastfmsample.base.transformers
+package com.jahnold.lastfmsample.list.network.transformer
 
 import com.google.common.truth.Truth.assertThat
-import com.jahnold.lastfmsample.base.network.data.ApiImage
-import com.jahnold.lastfmsample.list.network.data.ApiSearchAlbum
 import com.jahnold.lastfmsample.base.data.ImageSize
+import com.jahnold.lastfmsample.base.network.data.ApiImage
 import org.junit.Test
 
 class AlbumSearchTransformerTest {
@@ -17,9 +16,9 @@ class AlbumSearchTransformerTest {
 
         val result = transformer.transform(SEARCH_ALBUM)
 
-        assertThat(result.uuid).isEqualTo(AlbumDetailsTransformerTest.UUID)
-        assertThat(result.name).isEqualTo(AlbumDetailsTransformerTest.NAME)
-        assertThat(result.artist).isEqualTo(AlbumDetailsTransformerTest.ARTIST)
+        assertThat(result.uuid).isEqualTo(UUID)
+        assertThat(result.name).isEqualTo(NAME)
+        assertThat(result.artist).isEqualTo(ARTIST)
     }
 
     @Test
@@ -28,8 +27,8 @@ class AlbumSearchTransformerTest {
         val result = transformer.transform(SEARCH_ALBUM)
 
         assertThat(result.images).hasSize(2)
-        assertThat(result.images[ImageSize.SMALL]).isEqualTo(AlbumDetailsTransformerTest.IMAGE_URL1)
-        assertThat(result.images[ImageSize.MEDIUM]).isEqualTo(AlbumDetailsTransformerTest.IMAGE_URL2)
+        assertThat(result.images[ImageSize.SMALL]).isEqualTo(IMAGE_URL1)
+        assertThat(result.images[ImageSize.MEDIUM]).isEqualTo(IMAGE_URL2)
     }
 
     companion object {

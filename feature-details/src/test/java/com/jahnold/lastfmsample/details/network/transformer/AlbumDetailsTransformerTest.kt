@@ -1,15 +1,16 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.jahnold.lastfmsample.base.transformers
+package com.jahnold.lastfmsample.details.network.transformer
 
 import com.google.common.truth.Truth.assertThat
 import com.jahnold.lastfmsample.base.data.ImageSize
 import com.jahnold.lastfmsample.base.network.data.ApiImage
+import com.jahnold.lastfmsample.details.network.data.*
 import org.junit.Test
 
 class AlbumDetailsTransformerTest {
 
-    val transformer = com.jahnold.lastfmsample.details.network.transformer.AlbumDetailsTransformer()
+    val transformer = AlbumDetailsTransformer()
 
     @Test
     fun `should transfer simple data from api object`() {
@@ -76,8 +77,8 @@ class AlbumDetailsTransformerTest {
         const val PUBLISHED = "published"
         const val SUMMARY = "summary"
 
-        val ALBUM_DETAILS = com.jahnold.lastfmsample.details.network.ApiAlbumDetails(
-            album = com.jahnold.lastfmsample.details.network.ApiAlbumDetailsAlbum(
+        val ALBUM_DETAILS = ApiAlbumDetails(
+            album = ApiAlbumDetailsAlbum(
                 uuid = UUID,
                 name = NAME,
                 artist = ARTIST,
@@ -85,20 +86,20 @@ class AlbumDetailsTransformerTest {
                     ApiImage(url = IMAGE_URL1, size = "small"),
                     ApiImage(url = IMAGE_URL2, size = "medium")
                 ),
-                tracks = com.jahnold.lastfmsample.details.network.data.ApiTracks(
+                tracks = ApiTracks(
                     track = listOf(
-                        com.jahnold.lastfmsample.details.network.data.ApiTrack(
+                        ApiTrack(
                             name = TRACK_NAME,
                             duration = TRACK_DURATION
                         )
                     )
                 ),
-                tags = com.jahnold.lastfmsample.details.network.data.ApiTags(
+                tags = ApiTags(
                     tag = listOf(
-                        com.jahnold.lastfmsample.details.network.data.ApiTag(TAG_NAME)
+                        ApiTag(TAG_NAME)
                     )
                 ),
-                wiki = com.jahnold.lastfmsample.details.network.data.ApiWiki(
+                wiki = ApiWiki(
                     published = PUBLISHED,
                     summary = SUMMARY
                 )

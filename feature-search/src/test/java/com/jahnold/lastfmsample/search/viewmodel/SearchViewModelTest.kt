@@ -2,6 +2,7 @@
 
 package com.jahnold.lastfmsample.search.viewmodel
 
+import com.jahnold.lastfmsample.base.navigation.NavigationService
 import com.jahnold.lastfmsample.base.search.SearchService
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyZeroInteractions
@@ -11,7 +12,9 @@ import org.mockito.Mockito
 class SearchViewModelTest {
 
     val searchService = Mockito.mock(SearchService::class.java)
-    val viewModel = SearchViewModel(searchService)
+    val navigationService = Mockito.mock(NavigationService::class.java)
+
+    val viewModel = SearchViewModel(searchService, navigationService)
 
     @Test
     fun `should not pass null searches to service`() {
