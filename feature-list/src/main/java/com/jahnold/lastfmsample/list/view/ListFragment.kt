@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jahnold.lastfmsample.base.extension.bindView
 import com.jahnold.lastfmsample.base.view.BaseFragment
 import com.jahnold.lastfmsample.list.R
-import com.jahnold.lastfmsample.list.data.ListState
-import com.jahnold.lastfmsample.list.data.ListUiModel
-import com.jahnold.lastfmsample.list.viewmodel.ListViewModel
+import com.jahnold.lastfmsample.list.domain.ListViewModel
+import com.jahnold.lastfmsample.list.view.data.ListState
+import com.jahnold.lastfmsample.list.view.data.ListUiModel
 import javax.inject.Inject
 
 class ListFragment: BaseFragment() {

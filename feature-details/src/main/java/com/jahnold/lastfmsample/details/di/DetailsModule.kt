@@ -5,8 +5,8 @@ import com.jahnold.lastfmsample.base.di.BaseModule
 import com.jahnold.lastfmsample.base.di.NetworkModule
 import com.jahnold.lastfmsample.base.di.ViewModelKey
 import com.jahnold.lastfmsample.base.di.ViewModelModule
+import com.jahnold.lastfmsample.details.domain.DetailsViewModel
 import com.jahnold.lastfmsample.details.view.DetailsFragment
-import com.jahnold.lastfmsample.details.viewmodel.DetailsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

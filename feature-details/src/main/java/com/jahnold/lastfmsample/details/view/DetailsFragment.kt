@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.jahnold.lastfmsample.base.extension.bindView
 import com.jahnold.lastfmsample.base.view.BaseFragment
 import com.jahnold.lastfmsample.details.R
-import com.jahnold.lastfmsample.details.data.DetailsState
-import com.jahnold.lastfmsample.details.data.DetailsUiModel
-import com.jahnold.lastfmsample.details.viewmodel.DetailsViewModel
+import com.jahnold.lastfmsample.details.view.data.DetailsState
+import com.jahnold.lastfmsample.details.view.data.DetailsUiModel
+import com.jahnold.lastfmsample.details.domain.DetailsViewModel
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 

@@ -3,14 +3,14 @@
 package com.jahnold.lastfmsample.base.transformers
 
 import com.google.common.truth.Truth.assertThat
-import com.jahnold.lastfmsample.base.data.api.ApiImage
-import com.jahnold.lastfmsample.base.data.api.ApiSearchAlbum
-import com.jahnold.lastfmsample.base.data.domain.ImageSize
+import com.jahnold.lastfmsample.base.network.data.ApiImage
+import com.jahnold.lastfmsample.list.network.data.ApiSearchAlbum
+import com.jahnold.lastfmsample.base.data.ImageSize
 import org.junit.Test
 
 class AlbumSearchTransformerTest {
 
-    val transformer = AlbumSearchTransformer()
+    val transformer = com.jahnold.lastfmsample.list.network.transformer.AlbumSearchTransformer()
 
     @Test
     fun `should transfer simple data from api object`() {
@@ -41,7 +41,7 @@ class AlbumSearchTransformerTest {
         const val IMAGE_URL1 = "url1"
         const val IMAGE_URL2 = "url2"
 
-        val SEARCH_ALBUM = ApiSearchAlbum(
+        val SEARCH_ALBUM = com.jahnold.lastfmsample.list.network.data.ApiSearchAlbum(
             uuid = UUID,
             name = NAME,
             artist = ARTIST,

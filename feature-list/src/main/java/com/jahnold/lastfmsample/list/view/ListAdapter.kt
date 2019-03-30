@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jahnold.lastfmsample.list.R
-import com.jahnold.lastfmsample.list.data.ListUiModel
+import com.jahnold.lastfmsample.list.view.data.ListUiModel
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject

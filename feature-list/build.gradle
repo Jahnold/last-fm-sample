@@ -35,4 +35,5 @@ dependencies {
     view()
     testing()
     rx()
+    network()
 }

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jahnold.lastfmsample.base.extension.bindView
 import com.jahnold.lastfmsample.list.R
-import com.jahnold.lastfmsample.list.data.ListUiModel
+import com.jahnold.lastfmsample.list.view.data.ListUiModel
 import com.squareup.picasso.Picasso
 import io.reactivex.subjects.PublishSubject
 
