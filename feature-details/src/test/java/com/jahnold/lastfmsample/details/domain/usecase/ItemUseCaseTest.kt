@@ -3,16 +3,15 @@
 package com.jahnold.lastfmsample.details.domain.usecase
 
 import com.google.common.truth.Truth
+import com.jahnold.lastfmsample.basetest.TestSchedulerHelper
 import com.jahnold.lastfmsample.details.domain.data.AlbumDetails
-import com.jahnold.lastfmsample.base.util.SchedulerHelper
+import com.jahnold.lastfmsample.details.network.DetailsRepository
 import com.jahnold.lastfmsample.details.view.data.DetailsState
 import com.jahnold.lastfmsample.details.view.data.DetailsUiModelTransformer
-import com.jahnold.lastfmsample.details.network.DetailsRepository
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.observers.TestObserver
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import org.junit.Before
 import org.junit.Test
@@ -21,8 +20,8 @@ import org.mockito.Mockito
 class ItemUseCaseTest {
 
     val detailsRepository = Mockito.mock(DetailsRepository::class.java)
-    val schedulerHelper = Mockito.mock(SchedulerHelper::class.java)
     val transformer = Mockito.spy(DetailsUiModelTransformer::class.java)
+    val schedulerHelper = TestSchedulerHelper()
 
     val useCase = ItemUseCase(detailsRepository, schedulerHelper, transformer)
     val subscriber = TestObserver.create<DetailsState>()
@@ -31,8 +30,6 @@ class ItemUseCaseTest {
     @Before
     fun setup() {
         whenever(detailsRepository.getAlbumDetails(any())).thenReturn(broadcast)
-        whenever(schedulerHelper.io()).thenReturn(Schedulers.trampoline())
-        whenever(schedulerHelper.mainThread()).thenReturn(Schedulers.trampoline())
     }
 
     @Test

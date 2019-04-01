@@ -67,6 +67,8 @@ ext {
         testImplementation deps.mockito.kotlin
 
         kaptTest deps.dagger.compiler
+
+        testImplementation project(':base-test')
     }
 
     rx = Group {

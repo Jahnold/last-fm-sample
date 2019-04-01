@@ -1,6 +1,9 @@
 include ':app',
         ':base',
 
+        // TEST
+        ':base-test',
+
         // FEATURES
         ':feature-list',
         ':feature-details',

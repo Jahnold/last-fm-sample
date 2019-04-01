@@ -5,7 +5,7 @@ package com.jahnold.lastfmsample.list.domain.usecase
 import com.google.common.truth.Truth.assertThat
 import com.jahnold.lastfmsample.base.data.ImageSize
 import com.jahnold.lastfmsample.base.search.SearchService
-import com.jahnold.lastfmsample.base.util.SchedulerHelper
+import com.jahnold.lastfmsample.basetest.TestSchedulerHelper
 import com.jahnold.lastfmsample.list.domain.data.AlbumSearch
 import com.jahnold.lastfmsample.list.network.ListRepository
 import com.jahnold.lastfmsample.list.view.data.ListState
@@ -14,7 +14,6 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.observers.TestObserver
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import org.junit.Before
 import org.junit.Test
@@ -26,7 +25,7 @@ class ItemsUseCaseTest {
     val searchService = mock(SearchService::class.java)
     val networkRepository = mock(ListRepository::class.java)
     val transformer = spy(ListUiModelTransformer::class.java)
-    val schedulerHelper = mock(SchedulerHelper::class.java)
+    val schedulerHelper = TestSchedulerHelper()
 
     val useCase = ItemsUseCase(searchService, networkRepository, transformer, schedulerHelper)
 
@@ -39,8 +38,6 @@ class ItemsUseCaseTest {
 
         whenever(searchService.getSearchStream()).thenReturn(searchBroadcast)
         whenever(networkRepository.searchAlbums(any())).thenReturn(resultBroadcast)
-        whenever(schedulerHelper.io()).thenReturn(Schedulers.trampoline())
-        whenever(schedulerHelper.mainThread()).thenReturn(Schedulers.trampoline())
     }
 
     @Test
