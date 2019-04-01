@@ -1,26 +1,7 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
+apply from: '../config-android.gradle'
 
-android {
-    compileSdkVersion 28
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField "String", "LAST_FM_APIKEY", LAST_FM_APIKEY
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+android { defaultConfig { buildConfigField "String", "LAST_FM_APIKEY", LAST_FM_APIKEY } }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // DEPENDENCIES                                                                                   //
